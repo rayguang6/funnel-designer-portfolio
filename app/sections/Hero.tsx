@@ -24,7 +24,7 @@ const Hero = () => {
                 Strategic funnel design that transforms visitors into loyal customers and drives measurable business growth.
               </p>
               <div className="flex flex-col sm:flex-row gap-5">
-                <GradientButton href="https://www.facebook.com/rayguangg/" target="_blank">
+                <GradientButton href="https://www.facebook.com/rayguangg/">
                   <span className="flex items-center justify-center">
                     Get Started
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
