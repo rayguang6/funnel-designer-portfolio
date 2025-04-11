@@ -100,37 +100,30 @@ const Hero = () => {
               
               <motion.h1 
                 className="text-5xl md:text-6xl font-bold leading-tight mb-4 mt-3"
-                variants={titleVariants}
-                initial="hidden"
-                animate="visible"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
               >
-                <div className="overflow-hidden">
-                  <motion.span className="text-gradient inline-block">
-                    {firstLine.split("").map((letter, index) => (
-                      <motion.span
-                        key={index}
-                        variants={letterVariants}
-                        className="inline-block"
-                      >
-                        {letter === " " ? "\u00A0" : letter}
-                      </motion.span>
-                    ))}
-                  </motion.span>
-                </div>
-                {/* Reduce spacing between lines */}
-                <div className="overflow-hidden mt-1">
-                  <motion.span className={`${theme === 'dark' ? 'text-white' : 'text-slate-900'} inline-block`}>
-                    {secondLine.split("").map((letter, index) => (
-                      <motion.span
-                        key={index}
-                        variants={letterVariants}
-                        className="inline-block"
-                      >
-                        {letter === " " ? "\u00A0" : letter}
-                      </motion.span>
-                    ))}
-                  </motion.span>
-                </div>
+                <motion.div 
+                  className="overflow-hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3 }}
+                >
+                  <span className="text-gradient inline-block">
+                    {firstLine}
+                  </span>
+                </motion.div>
+                <motion.div 
+                  className="overflow-hidden mt-1"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                >
+                  <span className={`${theme === 'dark' ? 'text-white' : 'text-slate-900'} inline-block`}>
+                    {secondLine}
+                  </span>
+                </motion.div>
               </motion.h1>
               
               <motion.p 
