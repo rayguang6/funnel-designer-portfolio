@@ -20,9 +20,9 @@ const Badge: React.FC<BadgeProps> = ({
     <span 
       className={badgeClasses}
     >
-      <h6 className="text-gradient">
+      <h4 className="text-gradient text-lg md:text-md">
         {text}
-      </h6>
+      </h4>
     </span>
   );
 };

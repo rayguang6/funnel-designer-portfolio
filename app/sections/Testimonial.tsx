@@ -1,15 +1,17 @@
 import React from 'react'
 import { Badge } from '../components/ui'
 import { externalLinks } from '../constants/routes'
+import Image from 'next/image'
+import imageLink from '../constants/imageLink'
 
 // Testimonial data for reusability
 const testimonials = [
   {
     id: 1,
     quote: "Our conversion rate increased by 143% after implementing the new funnel design. The ROI was almost immediate, and the process was smooth from start to finish.",
-    author: "John Doe",
+    author: "Jordan Tay",
     position: "CEO, TechStartup Inc.",
-    initials: "JD",
+    image: imageLink.testimonial.testimonial1,
     rating: 5,
     highlight: "143% increase in conversion rate"
   },
@@ -18,7 +20,7 @@ const testimonials = [
     quote: "What impressed me most was the attention to both design and conversion strategy. The funnel not only looks great but actually converts visitors into paying customers.",
     author: "Sarah Johnson",
     position: "Marketing Director, E-commerce Brand",
-    initials: "SJ",
+    image: imageLink.testimonial.testimonial2,
     rating: 5,
     highlight: "Beautiful design & high conversion"
   },
@@ -27,7 +29,7 @@ const testimonials = [
     quote: "Working with a funnel designer who understands both design and technical implementation was a game-changer. Our sales doubled within 3 months of launching.",
     author: "Mike Thompson",
     position: "Founder, Online Coaching Program",
-    initials: "MT",
+    image: imageLink.testimonial.testimonial3,
     rating: 5,
     highlight: "Sales doubled in 3 months"
   }
@@ -69,8 +71,13 @@ const Testimonial = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={testimonial.id}
-              className={`bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl relative transform transition-all duration-300 
-                animate-fade-in-up animation-delay-${(index + 1) * 100} hover:-translate-y-2 hover:shadow-2xl`}
+              className={`bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl relative transform transition-all duration-500 
+                animate-fade-in-up animation-delay-${(index + 1) * 100} hover:-translate-y-2 
+                hover:shadow-[0_20px_25px_-5px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_20px_25px_-5px_rgba(37,99,235,0.3)] 
+                before:absolute before:inset-0 before:rounded-2xl before:opacity-0 before:transition-opacity
+                before:bg-gradient-to-br before:from-blue-100/50 before:via-transparent before:to-purple-100/50
+                dark:before:from-blue-900/30 dark:before:to-purple-900/30
+                hover:before:opacity-100 before:-z-10 before:blur-xl group`}
             >
               {/* Highlight badge */}
               <div className="absolute -top-4 right-8 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold py-1 px-3 rounded-full">
@@ -90,8 +97,15 @@ const Testimonial = () => {
                 </div>
                 
                 <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 flex items-center">
-                  <div className="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mr-4 shadow-lg">
-                    <span className="text-white font-bold">{testimonial.initials}</span>
+                  <div className="relative w-16 h-16 flex-shrink-0 mr-5" style={{ borderRadius: '50%', overflow: 'hidden' }}>
+                    <Image 
+                      src={testimonial.image}
+                      alt={testimonial.author}
+                      width={64}
+                      height={64}
+                      className="object-cover w-full h-full"
+                      style={{ aspectRatio: '1/1' }}
+                    />
                   </div>
                   <div>
                     <h4 className="font-bold text-lg">{testimonial.author}</h4>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LandingPageCarousel, squareImagePaths } from '../components/ui';
+import { Badge, LandingPageCarousel, squareImagePaths } from '../components/ui';
 
 interface LandingPageShowcaseProps {
   id?: string;
@@ -12,10 +12,11 @@ const LandingPageShowcase = ({ id, className = '' }: LandingPageShowcaseProps) =
       <div className="container mx-auto px-4 md:px-8 mb-14">
       <div className={"mb-16 text-center"}>
       
+      <Badge text="High Converting Funnels" />
       
       <h2 className="text-4xl md:text-5xl font-bold mb-6">
-        High Converting{' '}
-        <span>Funnels</span>
+        Our Recent{' '}
+        <span className='gradient-text'>Funnels</span>
       </h2>
       
       <p className={"text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"}>
