@@ -17,7 +17,7 @@ const testimonials = [
     position: "CEO, TechStartup Inc.",
     image: imageLink.testimonial.testimonial1,
     rating: 5,
-    highlight: "143% increase in conversion rate"
+    highlight: "143% increase"
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const testimonials = [
     position: "Marketing Director, E-commerce Brand",
     image: imageLink.testimonial.testimonial2,
     rating: 5,
-    highlight: "Beautiful design & high conversion"
+    highlight: "High conversion"
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const testimonials = [
     position: "Founder, Online Coaching Program",
     image: imageLink.testimonial.testimonial3,
     rating: 5,
-    highlight: "Sales doubled in 3 months"
+    highlight: "2x sales growth"
   }
 ];
 
@@ -76,7 +76,7 @@ const Testimonial = () => {
       
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -92,11 +92,11 @@ const Testimonial = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <motion.div 
               key={testimonial.id}
-              className={`${theme === 'dark' ? 'bg-gray-800/50' : 'bg-white'} rounded-2xl p-8 backdrop-blur-sm
+              className={`relative ${theme === 'dark' ? 'bg-gray-800/50' : 'bg-white'} rounded-2xl p-6 md:p-8 backdrop-blur-sm
                 border border-transparent hover:border-blue-500/20
                 shadow-lg hover:shadow-2xl transition-all duration-500
                 ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-white'}`}
@@ -106,19 +106,19 @@ const Testimonial = () => {
               viewport={{ once: true, margin: "-50px" }}
               whileHover={{ y: -5 }}
             >
-              {/* Highlight badge with glow effect */}
-              <div className={`absolute -top-4 right-8 bg-gradient-to-r from-blue-500 to-blue-600 
-                text-white text-xs font-bold py-1 px-3 rounded-full
+              {/* Highlight badge - made more compact for mobile */}
+              <div className={`absolute -top-3 right-4 bg-gradient-to-r from-blue-500 to-blue-600 
+                text-white text-xs font-bold py-1 px-2 rounded-full
                 shadow-lg ${theme === 'dark' ? 'shadow-blue-500/20' : 'shadow-blue-200/50'}`}>
                 {testimonial.highlight}
               </div>
               
               {/* Quote mark with gradient */}
-              <div className="absolute -top-5 -left-3 text-7xl leading-none">
+              <div className="absolute -top-4 -left-2 text-5xl md:text-7xl leading-none">
                 <span className="text-gradient opacity-90">"</span>
               </div>
               
-              <div className="relative pt-4">
+              <div className="relative pt-2">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -127,19 +127,20 @@ const Testimonial = () => {
                   <StarRating rating={testimonial.rating} />
                 </motion.div>
                 
-                <div className="h-40 mt-4">
-                  <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-6 italic leading-relaxed`}>
+                {/* Made quote section more responsive */}
+                <div className="min-h-[120px] mt-4">
+                  <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} text-sm md:text-base italic leading-relaxed`}>
                     "{testimonial.quote}"
                   </p>
                 </div>
                 
                 <motion.div 
-                  className={`mt-8 pt-6 border-t flex items-center ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}
+                  className={`mt-6 pt-4 border-t flex items-center ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: index * 0.1 + 0.4 }}
                 >
-                  <div className="relative w-16 h-16 flex-shrink-0 mr-5 rounded-full overflow-hidden
+                  <div className="relative w-12 h-12 md:w-16 md:h-16 flex-shrink-0 mr-4 rounded-full overflow-hidden
                     ring-2 ring-offset-2 ring-blue-500/30 ring-offset-transparent">
                     <Image 
                       src={testimonial.image}
@@ -151,10 +152,10 @@ const Testimonial = () => {
                     />
                   </div>
                   <div>
-                    <h4 className={`font-bold text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                    <h4 className={`font-bold text-base md:text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
                       {testimonial.author}
                     </h4>
-                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    <p className={`text-xs md:text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                       {testimonial.position}
                     </p>
                   </div>
