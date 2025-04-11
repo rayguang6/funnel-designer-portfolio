@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className={`py-4 border-t border-primary bg-black`}>
         <div className="container mx-auto px-4 text-center">
         <p className="text-xl font-bold text-gradient">Funnel Design | Lei Zhi Guang</p>
-        <p className={`text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mt-2`}>© {new Date().getFullYear()} All Rights Reserved</p>
+        <p className={`text-sm text-white mt-2`}>© {new Date().getFullYear()} All Rights Reserved</p>
         </div>
   </footer>
   )
