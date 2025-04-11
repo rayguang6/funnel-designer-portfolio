@@ -27,11 +27,11 @@ const MultiDirectionalCarousel = ({
   const carouselTopItems = topItems;
   const carouselBottomItems = bottomItems;
   
-  // Size classes
+  // Responsive size classes
   const sizeClasses = {
-    sm: 'w-20 h-20',
-    md: 'w-32 h-32',
-    lg: 'w-48 h-48'
+    sm: 'w-16 h-16 md:w-20 md:h-20',
+    md: 'w-24 h-24 md:w-32 md:h-32',
+    lg: 'w-32 h-32 md:w-48 md:h-48'
   };
   
 
@@ -41,24 +41,24 @@ const MultiDirectionalCarousel = ({
         key={key} 
         className={`${sizeClasses[itemSize]} rounded-lg flex-shrink-0 flex items-center justify-center gradient-bg-subtle shadow-md hover:shadow-lg transition-all hover-lift`}
       >
-          <div className="w-full h-full relative">
-            <Image 
-              src={item.image || ''} 
-              alt={`Carousel item ${item.id}`} 
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-
+        <div className="w-full h-full relative">
+          <Image 
+            src={item.image || ''} 
+            alt={`Carousel item ${item.id}`} 
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 768px) 6rem, 12rem"
+          />
+        </div>
       </div>
     );
   };
 
   return (
-    <div className={`space-y-8 ${className}`}>
+    <div className={`space-y-4 md:space-y-8 ${className}`}>
       {/* Top row - scrolls left to right */}
       <div className="overflow-hidden">
-        <div className="animate-scroll-right flex gap-3 w-max py-3">
+        <div className="animate-scroll-right flex gap-2 md:gap-3 w-max py-2 md:py-3">
           {/* First set of top items */}
           {carouselTopItems && carouselTopItems.map((item) => renderCarouselItem(item, `carousel-top-${item.id}`))}
           
@@ -69,7 +69,7 @@ const MultiDirectionalCarousel = ({
       
       {/* Bottom row - scrolls right to left */}
       <div className="overflow-hidden">
-        <div className="animate-scroll-left flex gap-3 w-max py-3">
+        <div className="animate-scroll-left flex gap-2 md:gap-3 w-max py-2 md:py-3">
           {/* First set of bottom items */}
           {carouselBottomItems && carouselBottomItems.map((item) => renderCarouselItem(item, `carousel-bottom-${item.id}`))}
           
