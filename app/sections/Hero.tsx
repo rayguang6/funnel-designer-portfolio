@@ -48,8 +48,8 @@ const Hero = () => {
   };
 
   // Split text for animation
-  const firstLine = "Funnels that CONVERT.";
-  const secondLine = "Designs that IMPRESS.";
+  const firstLine = "Funnels that CONVERT";
+  const secondLine = "Designs that IMPRESS";
   
   return (
     <section className={`relative ${theme === 'dark' ? 'bg-gradient-to-b from-gray-900 to-gray-800' : 'bg-gradient-to-b from-blue-50 to-white'} pt-32 pb-24 overflow-hidden`}>

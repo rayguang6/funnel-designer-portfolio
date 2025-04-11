@@ -93,54 +93,74 @@ const servicesData = [
 const Services = () => {
   const { theme } = useTheme();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const titleVariants = {
-    hidden: { y: -20, opacity: 0 },
+  const textVariants = {
+    hidden: { opacity: 0, y: 10 },
     visible: { 
-      y: 0, 
-      opacity: 1,
+      opacity: 1, 
+      y: 0,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12
+        duration: 0.5,
+        ease: "easeOut"
       }
     }
   };
 
   return (
-    <section className={`py-24 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} relative overflow-hidden`}>
-      {/* Simple animated background elements */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
-        <motion.div 
-          className={`absolute top-1/4 left-1/4 w-64 h-64 rounded-full ${theme === 'dark' ? 'border-blue-500' : 'border-blue-300'} border-4`}
-          animate={{ 
-            scale: [1, 1.05, 1],
+    <section className={`relative py-24 overflow-hidden ${theme === 'dark' ? 'bg-gradient-to-b from-gray-900 via-gray-900 to-gray-800' : 'bg-gradient-to-b from-white via-gray-50/50 to-white'}`}>
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Grid pattern */}
+        <div 
+          className={`absolute inset-0 ${theme === 'dark' ? 'opacity-[0.07]' : 'opacity-[0.05]'}`}
+          style={{
+            backgroundImage: `linear-gradient(to right, ${theme === 'dark' ? '#fff' : '#000'} 1px, transparent 1px), 
+                             linear-gradient(to bottom, ${theme === 'dark' ? '#fff' : '#000'} 1px, transparent 1px)`,
+            backgroundSize: '64px 64px',
+            mask: 'radial-gradient(circle at center, black 60%, transparent 90%)'
           }}
-          transition={{ 
-            duration: 8,
+        >
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              backgroundPosition: ['0px 0px', '64px 64px', '0px 0px'],
+            }}
+            transition={{
+              duration: 20,
+              ease: "linear",
+              repeat: Infinity,
+            }}
+            style={{
+              backgroundImage: `linear-gradient(to right, ${theme === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)'} 1px, transparent 1px), 
+                               linear-gradient(to bottom, ${theme === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)'} 1px, transparent 1px)`,
+              backgroundSize: '64px 64px'
+            }}
+          />
+        </div>
+
+        {/* Gradient orbs */}
+        <motion.div
+          className={`absolute w-[600px] h-[600px] rounded-full ${theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-200/20'} blur-3xl`}
+          animate={{
+            x: [-300, 300, -300],
+            y: [-200, 200, -200],
+          }}
+          transition={{
+            duration: 20,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "linear"
           }}
         />
-        <motion.div 
-          className={`absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full ${theme === 'dark' ? 'border-purple-500' : 'border-purple-300'} border-4`}
-          animate={{ 
-            scale: [1, 1.1, 1],
+        <motion.div
+          className={`absolute right-0 w-[500px] h-[500px] rounded-full ${theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-200/20'} blur-3xl`}
+          animate={{
+            x: [200, -200, 200],
+            y: [200, -200, 200],
           }}
-          transition={{ 
-            duration: 7,
-            delay: 1,
+          transition={{
+            duration: 15,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "linear",
+            delay: 1
           }}
         />
       </div>
@@ -148,39 +168,36 @@ const Services = () => {
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <motion.div 
           className="text-center mb-16 md:mb-24"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          <Badge text="SERVICES" />
+          <motion.div variants={textVariants}>
+            <Badge text="SERVICES" />
+          </motion.div>
+          
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold mb-6"
-            variants={titleVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            className={`text-4xl md:text-5xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}
+            variants={textVariants}
           >
-            <span className={`${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Fullstack A-Z </span>
+            <span>Fullstack A-Z </span>
             <span className="gradient-text">Funnel Solutions</span>
           </motion.h2>
+
           <motion.p 
             className={`text-xl ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} max-w-3xl mx-auto`}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            viewport={{ once: true }}
+            variants={textVariants}
           >
             Everything you need to build high-converting funnels that drive real business growth
           </motion.p>
         </motion.div>
 
-        {/* Services Grid with the new colored ServiceCard components */}
+        {/* Services Grid */}
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true, margin: "-50px" }}
         >
           {servicesData.map((service, index) => (

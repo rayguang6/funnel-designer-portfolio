@@ -4,41 +4,64 @@ import React from 'react'
 import { Badge } from '../components/ui'
 import imageLink from '../constants/imageLink'
 import { useTheme } from '../context/ThemeProvider';
+import { motion } from 'framer-motion';
 
 const About = () => {
   const { theme } = useTheme();
   
   return (
-    <section id="about" className={`py-24 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} overflow-hidden`}>
-      <style jsx global>{`
-        @keyframes float {
-          0% { transform: translateY(0px) rotate(3deg); }
-          50% { transform: translateY(-10px) rotate(5deg); }
-          100% { transform: translateY(0px) rotate(3deg); }
-        }
-        @keyframes float-delayed {
-          0% { transform: translateY(0px) rotate(-3deg); }
-          50% { transform: translateY(10px) rotate(-5deg); }
-          100% { transform: translateY(0px) rotate(-3deg); }
-        }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-        .animate-float-delayed {
-          animation: float-delayed 7s ease-in-out infinite;
-          animation-delay: 1s;
-        }
-      `}</style>
-      {/* Background decoration */}
-      <div className="absolute left-0 right-0 w-full h-full max-w-7xl mx-auto opacity-5 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full border-8 border-blue-500 transform rotate-45"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full border-8 border-purple-500 transform -rotate-12"></div>
+    <section id="about" className={`relative py-24 overflow-hidden ${theme === 'dark' ? 'bg-gradient-to-b from-gray-800 to-gray-900' : 'bg-gradient-to-b from-gray-50 to-white'}`}>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Gradient orbs */}
+        <motion.div
+          className={`absolute w-[500px] h-[500px] rounded-full ${theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-200/20'} blur-3xl`}
+          animate={{
+            x: [-200, 200, -200],
+            y: [-200, 200, -200],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className={`absolute right-0 w-[400px] h-[400px] rounded-full ${theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-200/20'} blur-3xl`}
+          animate={{
+            x: [200, -200, 200],
+            y: [200, -200, 200],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 1
+          }}
+        />
+
+        {/* Accent lines */}
+        <div className={`absolute -left-10 top-1/3 w-32 h-[1px] ${theme === 'dark' ? 'bg-gradient-to-r from-transparent via-blue-500/20 to-transparent' : 'bg-gradient-to-r from-transparent via-blue-300/40 to-transparent'}`} />
+        <div className={`absolute -right-10 bottom-1/3 w-32 h-[1px] ${theme === 'dark' ? 'bg-gradient-to-r from-transparent via-purple-500/20 to-transparent' : 'bg-gradient-to-r from-transparent via-purple-300/40 to-transparent'}`} />
       </div>
-      
+
+      {/* Content Container */}
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-16">
+        <motion.div 
+          className="flex flex-col md:flex-row items-center justify-between gap-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {/* Left side - Image and badges */}
-          <div className="md:w-5/12 mb-10 md:mb-0 relative">
+          <motion.div 
+            className="md:w-5/12 mb-10 md:mb-0 relative"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             {/* Main image */}
             <div className="rounded-2xl overflow-hidden">
               <img
@@ -83,13 +106,19 @@ const About = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Right side - Content */}
-          <div className="md:w-6/12">
+          <motion.div 
+            className="md:w-6/12"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
             <Badge text="ABOUT ME" />
             <h2 className={`${theme === 'dark' ? 'text-white' : 'text-slate-900'} text-4xl sm:text-5xl font-bold mb-6`}>
-              <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-900'}`}>Hi, I'm </span>
+              <span className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Hi, I'm </span>
               <span className="text-gradient">Lei Zhi Guang</span>
             </h2>
             
@@ -159,9 +188,17 @@ const About = () => {
                 <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} pl-14`}>Innovative approaches to complex funnel challenges</p>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Bottom fade effect */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: `linear-gradient(to bottom, transparent, ${theme === 'dark' ? 'rgb(17, 24, 39)' : 'rgb(255, 255, 255)'})`
+        }}
+      />
     </section>
   )
 }

@@ -6,6 +6,8 @@ import { externalLinks } from '../constants/routes'
 import Image from 'next/image'
 import imageLink from '../constants/imageLink'
 import { useTheme } from '../context/ThemeProvider';
+import { motion } from 'framer-motion';
+import { StarRating } from '../components/ui';
 // Testimonial data for reusability
 const testimonials = [
   {
@@ -37,68 +39,108 @@ const testimonials = [
   }
 ];
 
-// Star rating component for cleaner code
-const StarRating = ({ rating }: { rating: number }) => {
-  return (
-    <div className="flex mb-2">
-      {[...Array(rating)].map((_, i) => (
-        <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
-};
-
 const Testimonial = () => {
   const { theme } = useTheme();
+
   return (
-    <section className={`py-24 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'} relative overflow-hidden`}>
-      {/* Background elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
-        <div className="absolute -top-24 -left-24 w-72 h-72 bg-blue-200 dark:bg-blue-900 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-        <div className="absolute top-48 -right-24 w-72 h-72 bg-blue-300 dark:bg-blue-800 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-24 left-1/3 w-72 h-72 bg-blue-400 dark:bg-blue-700 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+    <section className={`relative py-24 overflow-hidden ${theme === 'dark' ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900' : 'bg-gradient-to-b from-white via-gray-50 to-white'}`}>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Gradient orbs */}
+        <motion.div
+          className={`absolute w-[600px] h-[600px] rounded-full ${theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-200/20'} blur-3xl`}
+          animate={{
+            x: [-300, 300, -300],
+            y: [-200, 200, -200],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className={`absolute right-0 w-[500px] h-[500px] rounded-full ${theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-200/20'} blur-3xl`}
+          animate={{
+            x: [200, -200, 200],
+            y: [200, -200, 200],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 1
+          }}
+        />
       </div>
       
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
           <Badge text="TESTIMONIALS" />
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className={`${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>What My </span>
-            <span className="text-gradient">Clients Say</span></h2>
+            <span className="text-gradient">Clients Say</span>
+          </h2>
           <p className={`text-xl ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} max-w-3xl mx-auto`}>
             Results speak louder than words. Here's what clients have to say about our partnership.
           </p>
-        </div>
+        </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <div 
+            <motion.div 
               key={testimonial.id}
-              className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-8 shadow-xl relative transform transition-all duration-500 
-                animate-fade-in-up animation-delay-${(index + 1) * 100} hover:-translate-y-2 
-                hover:shadow-[0_20px_25px_-5px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_20px_25px_-5px_rgba(37,99,235,0.3)]`}
+              className={`${theme === 'dark' ? 'bg-gray-800/50' : 'bg-white'} rounded-2xl p-8 backdrop-blur-sm
+                border border-transparent hover:border-blue-500/20
+                shadow-lg hover:shadow-2xl transition-all duration-500
+                ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-white'}`}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              whileHover={{ y: -5 }}
             >
-              {/* Highlight badge */}
-              <div className="absolute -top-4 right-8 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold py-1 px-3 rounded-full">
+              {/* Highlight badge with glow effect */}
+              <div className={`absolute -top-4 right-8 bg-gradient-to-r from-blue-500 to-blue-600 
+                text-white text-xs font-bold py-1 px-3 rounded-full
+                shadow-lg ${theme === 'dark' ? 'shadow-blue-500/20' : 'shadow-blue-200/50'}`}>
                 {testimonial.highlight}
               </div>
               
-              {/* Quote mark */}
-              <div className="absolute -top-5 -left-3 text-7xl text-gradient opacity-90 leading-none">"</div>
+              {/* Quote mark with gradient */}
+              <div className="absolute -top-5 -left-3 text-7xl leading-none">
+                <span className="text-gradient opacity-90">"</span>
+              </div>
               
               <div className="relative pt-4">
-                <StarRating rating={testimonial.rating} />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+                >
+                  <StarRating rating={testimonial.rating} />
+                </motion.div>
                 
-                <div className="h-40">
+                <div className="h-40 mt-4">
                   <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-6 italic leading-relaxed`}>
                     "{testimonial.quote}"
                   </p>
                 </div>
                 
-                <div className={`mt-8 pt-6 border-t flex items-center ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}>
-                  <div className="relative w-16 h-16 flex-shrink-0 mr-5" style={{ borderRadius: '50%', overflow: 'hidden' }}>
+                <motion.div 
+                  className={`mt-8 pt-6 border-t flex items-center ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 + 0.4 }}
+                >
+                  <div className="relative w-16 h-16 flex-shrink-0 mr-5 rounded-full overflow-hidden
+                    ring-2 ring-offset-2 ring-blue-500/30 ring-offset-transparent">
                     <Image 
                       src={testimonial.image}
                       alt={testimonial.author}
@@ -109,16 +151,27 @@ const Testimonial = () => {
                     />
                   </div>
                   <div>
-                    <h4 className={`font-bold text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{testimonial.author}</h4>
-                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{testimonial.position}</p>
+                    <h4 className={`font-bold text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                      {testimonial.author}
+                    </h4>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                      {testimonial.position}
+                    </p>
                   </div>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-        
       </div>
+
+      {/* Bottom fade effect */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: `linear-gradient(to bottom, transparent, ${theme === 'dark' ? 'rgb(17, 24, 39)' : 'rgb(255, 255, 255)'})`
+        }}
+      />
     </section>
   )
 }
