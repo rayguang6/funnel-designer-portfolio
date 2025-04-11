@@ -253,7 +253,7 @@ const Hero = () => {
                 
                 {/* ROI Card - styled like monthly growth */}
                 <motion.div 
-                  className={`absolute top-24 right-12 w-44 ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white'} rounded-xl shadow-xl p-3 backdrop-blur-sm border border-indigo-500/20`}
+                  className={`absolute top-24 right-0 w-44 ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white'} rounded-xl shadow-xl p-3 backdrop-blur-sm border border-indigo-500/20`}
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.7 }}
