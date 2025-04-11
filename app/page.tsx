@@ -1,15 +1,17 @@
-
-import { Hero, About, Services, Testimonial, FinalCTA, SquareCarousel, Footer, LandingPageShowcase } from "./sections";
+import { Hero, About, Services, Testimonial, FinalCTA, SquareCarousel, Footer, RecentWork, Topbar } from "./sections";
 
 export default function Home() {
 
   return (
     <div className="min-h-screen">
+
+      <Topbar />
+
       {/* Hero Section */}
       <Hero />
       
       {/* Landing Page Showcase Section */}
-      <LandingPageShowcase id="landing-pages" className="py-24" />
+      <RecentWork id="landing-pages" className="py-24" />
 
       {/* Services Section */}
       <Services />
@@ -24,7 +26,7 @@ export default function Home() {
       <FinalCTA />
 
       {/* Full width landing page carousel - only top edges rounded and no bottom space */}
-      <SquareCarousel />
+      {/* <SquareCarousel /> */}
 
       {/* Simple Footer */}
       <Footer />

@@ -4,9 +4,12 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        // background: 'rgb(var(--background))',
+        // foreground: 'rgb(var(--foreground))',
         blue: {
           50: '#e6f2ff',
           100: '#cce5ff',

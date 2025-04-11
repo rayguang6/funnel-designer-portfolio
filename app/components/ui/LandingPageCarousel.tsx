@@ -47,7 +47,7 @@ const LandingPageCarousel = ({
       {/* Top row - scrolls right to left */}
       {!squareOnly && (
         <div className="overflow-hidden w-full">
-          <div className="animate-scroll-right flex gap-6 w-max py-4">
+          <div className="animate-scroll-right flex gap-6 w-max">
            {/* First set of top images */}
             {carouselTopImages.map((src, index) => (
               <div 
@@ -173,7 +173,7 @@ const LandingPageCarousel = ({
       {/* Bottom row - scrolls left to right with square images - only shown when longOnly is false */}
       {!longOnly && (
         <div className="overflow-hidden w-full">
-          <div className="animate-scroll-left flex gap-8 w-max py-4">
+          <div className="animate-scroll-left flex gap-8 w-max">
             {/* First set of bottom square images */}
             {carouselBottomImages.map((src, index) => (
               <div 
@@ -213,7 +213,7 @@ const LandingPageCarousel = ({
                     fill
                     style={{ objectFit: 'cover' }}
                     sizes="(max-width: 768px) 80vw, 40vw"
-                    className="group-hover:scale-110 transition-transform duration-700"
+                    className="group-hover:scale-110 transition-transform duration-700 shadow-lg"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                     <div className="p-4">

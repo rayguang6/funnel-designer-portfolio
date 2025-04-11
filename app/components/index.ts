@@ -1,7 +1,7 @@
 export { default as Button } from './Button';
 export { default as Card } from './Card';
 export { default as ShowcaseCarousel } from '../sections/ShowcaseCarousel';
-export { default as LandingPageShowcase } from '../sections/LandingPageShowcase';
+export { default as LandingPageShowcase } from '../sections/RecentWork';
 
 // UI Components
 export * from './ui';

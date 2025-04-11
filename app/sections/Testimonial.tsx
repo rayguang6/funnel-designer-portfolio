@@ -1,9 +1,11 @@
+'use client'
+
 import React from 'react'
 import { Badge } from '../components/ui'
 import { externalLinks } from '../constants/routes'
 import Image from 'next/image'
 import imageLink from '../constants/imageLink'
-
+import { useTheme } from '../context/ThemeProvider';
 // Testimonial data for reusability
 const testimonials = [
   {
@@ -49,8 +51,9 @@ const StarRating = ({ rating }: { rating: number }) => {
 };
 
 const Testimonial = () => {
+  const { theme } = useTheme();
   return (
-    <section className="py-24 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
+    <section className={`py-24 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'} relative overflow-hidden`}>
       {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
         <div className="absolute -top-24 -left-24 w-72 h-72 bg-blue-200 dark:bg-blue-900 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
@@ -61,8 +64,10 @@ const Testimonial = () => {
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="text-center mb-16">
           <Badge text="TESTIMONIALS" />
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">What My <span className="text-gradient">Clients Say</span></h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className={`${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>What My </span>
+            <span className="text-gradient">Clients Say</span></h2>
+          <p className={`text-xl ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} max-w-3xl mx-auto`}>
             Results speak louder than words. Here's what clients have to say about our partnership.
           </p>
         </div>
@@ -71,13 +76,9 @@ const Testimonial = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={testimonial.id}
-              className={`bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl relative transform transition-all duration-500 
+              className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-8 shadow-xl relative transform transition-all duration-500 
                 animate-fade-in-up animation-delay-${(index + 1) * 100} hover:-translate-y-2 
-                hover:shadow-[0_20px_25px_-5px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_20px_25px_-5px_rgba(37,99,235,0.3)] 
-                before:absolute before:inset-0 before:rounded-2xl before:opacity-0 before:transition-opacity
-                before:bg-gradient-to-br before:from-blue-100/50 before:via-transparent before:to-purple-100/50
-                dark:before:from-blue-900/30 dark:before:to-purple-900/30
-                hover:before:opacity-100 before:-z-10 before:blur-xl group`}
+                hover:shadow-[0_20px_25px_-5px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_20px_25px_-5px_rgba(37,99,235,0.3)]`}
             >
               {/* Highlight badge */}
               <div className="absolute -top-4 right-8 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold py-1 px-3 rounded-full">
@@ -91,12 +92,12 @@ const Testimonial = () => {
                 <StarRating rating={testimonial.rating} />
                 
                 <div className="h-40">
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 italic leading-relaxed">
+                  <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-6 italic leading-relaxed`}>
                     "{testimonial.quote}"
                   </p>
                 </div>
                 
-                <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700 flex items-center">
+                <div className={`mt-8 pt-6 border-t flex items-center ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}>
                   <div className="relative w-16 h-16 flex-shrink-0 mr-5" style={{ borderRadius: '50%', overflow: 'hidden' }}>
                     <Image 
                       src={testimonial.image}
@@ -108,8 +109,8 @@ const Testimonial = () => {
                     />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg">{testimonial.author}</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.position}</p>
+                    <h4 className={`font-bold text-lg ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{testimonial.author}</h4>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{testimonial.position}</p>
                   </div>
                 </div>
               </div>
