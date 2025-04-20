@@ -1,4 +1,5 @@
 import { Hero, About, Services, Testimonial, FinalCTA, SquareCarousel, Footer, RecentWork, Topbar } from "./sections";
+import { Analytics } from "@vercel/analytics/react"
 
 export default function Home() {
 
